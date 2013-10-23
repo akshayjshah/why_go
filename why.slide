@@ -1,0 +1,157 @@
+Stop 💩ing the Bed
+Go in a Django World
+25 Oct 2013
+Tags: python, django
+
+Akshay Shah
+Resident Gopher, Hearsay Social
+akshay@akshayshah.org
+http://akshayshah.org
+@akshayshah
+
+
+* This Talk
+
+Today, I'm going to convince you that
+
+- Python shouldn't be our only server-side tool
+- One of those tools should be Go
+
+Grab some 🍻 and strap in.
+
+.image img/gopher.png 260 260
+
+
+* We 💩 the Bed Constantly
+
+Python & Django are great, but they don't do much to _prevent_ the quality problems we're experiencing. In the hour before I wrote this slide, we had 1329 AttributeErrors in production.
+
+.image img/errors.png 253 822
+
+This is fixable in Python, but we should be free to choose other tools _if_ they're more appropriate - especially for loosely-coupled services.
+
+
+* TANSTAAFL
+
+As economists say, there ain't no such thing as a free lunch. Python & Django are great at some things, but they're not perfect.
+
+.html html/python.html
+
+In general, we work around Python's weak points with _conventions_ and _tests_.
+
+
+* Conventions Live Outside the Code
+
+From @rbm's bug triage email this week:
+
+.image img/conventions.png 182 690
+
+As code quantity, code complexity, and number of developers increase, conventions scale poorly. There's too much tribal knowledge.
+
+Said differently, Murphy's Law always wins.
+
+
+* Tests Are Work
+
+Testing should be part of any modern application. That said, writing tests is work.
+
+- We need _lots_ of tests to be safe (for the class of errors we're talking about)
+- If we write tests like that, what's the net gain in development velocity?
+
+When Python & Django are doing a lot of heavy lifting for us, it's worth writing enough tests to be confident in our code.
+
+For tasks that don't leverage much of Django, we should use tools that do more to support us.
+
+
+* Pick Your Poison ☠
+
+
+* Go: Static Typing That Feels Dynamic
+
+
+* Google Juice
+
+At a high level, Go is
+
+- Open source
+- Statically typed and compiled to machine code
+- Designed for writing clean server code at scale
+
+Feature-wise, it has
+
+- Great concurrency primitives
+- An unusual take on object orientation
+- 🔋 included (but different)
+
+It's a language for _working_programmers_, not researchers or academics.
+
+
+* Hello, World
+
+.play -edit code/hello.go
+
+
+* Inference Makes Types Feel Dynamic
+
+.play -edit code/inference.go /START OMIT/,/END OMIT/
+
+It also makes refactoring much easier.
+
+
+* Compiler-Checked Duck Typing
+
+.play -edit code/interfaces.go /START OMIT/,/END OMIT/
+
+
+* Concurrency
+
+.play -edit code/chat.go /START OMIT/,/END OMIT/
+
+
+* Error Handling
+
+.play -edit code/errors.go /START OMIT/,/END OMIT/
+
+
+* Tooling
+
+You've already seen most of the core language. Included in the standard
+distribution:
+
+- Cross-compiling, runtime race detection: go build
+- Source-driven dependency management: go get
+- Unambiguous, tooling-enforced formatting: go fmt
+- Linting: go vet
+- Source-driven documentation: go doc
+- Integrated testing framework: go test
+- Production-ready webserver, routing, and templating.
+
+Go takes tooling seriously.
+
+
+* Questions about Go?
+
+
+* Just Add Code
+
+If you're interested, the infrastructure is ready.
+
+- [[https://github.com/hearsaycorp/golang][golang repo]] with githooks.
+- Chef recipe (already installed on dev machines)
+- Jenkins job to build, lint, test, and archive packages
+- Deployment from S3
+
+
+* Nobody Likes 💩 In the Bed
+
+
+* Resources
+
+Pro tip: search for "golang," not "go."
+
+- [[http://golang.org/doc/code.html][How to Write Go Code]]
+- The interactive [[http://tour.golang.org/#1][tour]]
+- [[http://golang.org/doc/effective_go.html][Effective Go]]
+- [[http://www.youtube.com/watch?v=cN_DpYBzKso][Concurrency Is Not Parallelism]]
+- There are Django-style mega-frameworks, Flask-style micro-toolkits, BDD and xUnit-style testing, and database-agnostic ORMs available
+- Plugins for emacs, vim, Sublime Text, JetBrains, and Eclipse available
